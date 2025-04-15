@@ -1,6 +1,7 @@
 <script setup>
 import Header from './Header.vue'
 import Select from './Select.vue'
+import ToDoList from './ToDoList.vue'
 import AddCircleIcon from 'vue-material-design-icons/PlusCircleOutline.vue'
 </script>
 
@@ -10,6 +11,9 @@ import AddCircleIcon from 'vue-material-design-icons/PlusCircleOutline.vue'
     <div class="genre">
       <Select />
       <AddCircleIcon class="add_circle_outline_icon"/>
+    </div>
+    <div class="contents">
+      <ToDoList />
     </div>
   </div>
 </template>
@@ -34,4 +38,10 @@ import AddCircleIcon from 'vue-material-design-icons/PlusCircleOutline.vue'
   color: rgb(70, 70, 70);
 }
 
+.contents {
+  display: flex;
+  height: calc(100vh - 120px);
+  width: 100%;
+  overflow: auto;
+}
 </style>
