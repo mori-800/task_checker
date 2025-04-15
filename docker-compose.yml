@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+    app:
+      container_name: app
+      build: 
+        context: ./task_checker_front
+        dockerfile: Dockerfile
+      ports:
+        - "5173:5173"
+      volumes:
+        - ./task_checker_front:/app
+        - /app/node_modules
+
+    server:
+      container_name: server
+      build: 
+        context: ./task_checker_back
+        dockerfile: Dockerfile
+      ports:
+        - "3000:3000"
+      depends_on:
+        - db
+
+    db:
+      container_name: db
+      image: "postgres:14.11"
+      ports:
+        - 5433:5432
+      env_file:
+        - ./task_checker_back/.env
+      volumes:
+        - taskchecker-db-volume:/var/lib/postgresql/data
+volumes:
+  taskchecker-db-volume:
