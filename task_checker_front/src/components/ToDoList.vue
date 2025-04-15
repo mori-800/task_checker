@@ -2,6 +2,10 @@
 import MenuIcon from 'vue-material-design-icons/Menu.vue'
 import AddCircleIcon from 'vue-material-design-icons/PlusCircleOutline.vue'
 import Task from './Task.vue'
+import FormModal from './FormModal.vue';
+
+import { ref } from 'vue'
+const showModal = ref(false)
 </script>
 
 <template>
@@ -11,7 +15,9 @@ import Task from './Task.vue'
       <span class="section_ele">ToDo</span>
       <AddCircleIcon
         class="add_circle_outline_icon"
+        @click="showModal = true"
       />
+      <FormModal v-model="showModal" body="taskBody"/>
     </div>
     <div class="task_field">
       <Task />
