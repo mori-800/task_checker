@@ -1,3 +1,11 @@
+const express = require("express")
+const app = express();
+app.use(express.json());
+
+app.listen(3000, () => {
+  console.log("listening on localhost 3000")
+})
+
 // prismaの読み込み
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
