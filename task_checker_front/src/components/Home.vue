@@ -14,8 +14,7 @@ const showModal = ref(false);
     <div class="genre">
       <Select />
       <AddCircleIcon class="add_circle_outline_icon" @click="showModal = true"/>
-      <FormModal v-model="showModal"/>
-    </div>
+      <FormModal v-model="showModal" body="genreBody"/>    </div>
     <div class="contents">
       <ToDoList />
     </div>
