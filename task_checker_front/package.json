@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.5.13"
+    "@kouts/vue-modal": "^5.0.1",
+    "vue": "^3.5.13",
+    "vue-material-design-icons": "^5.3.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
