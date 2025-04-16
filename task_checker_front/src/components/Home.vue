@@ -10,6 +10,11 @@ import { useGenreStore } from '../stores/GenreStore'
 const showModal = ref(false);
 const taskStore = useTaskStore();
 const genreStore = useGenreStore();
+const changeSelectedGenreId = (e) => {
+  const selectGenreId = e.target.value;
+  taskStore.filterTasks(selectGenreId);
+}
+
 
 onMounted(async()=> {
   try{
@@ -30,7 +35,7 @@ onMounted(async()=> {
   <div class="main">
     <Header />
     <div class="genre">
-      <Select />
+      <Select @change="changeSelectedGenreId"/>
       <AddCircleIcon class="add_circle_outline_icon" @click="showModal = true"/>
       <FormModal v-model="showModal" body="genreBody"/>    </div>
     <div class="contents">
