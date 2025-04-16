@@ -9,15 +9,20 @@ import { ref } from 'vue'
 import { useTaskStore } from '../stores/TaskStore'; 
 const taskStore = useTaskStore();
 const showModal = ref(false)
+const showTask = ref(true)
 const props = defineProps({
   status: String,
   tasks: Object
 })
+const toggleShowTasks = () => {
+  showTask.value = !showTask.value
+}
 </script>
 
 <template>
   <div class="task_list">
     <div class="section">
+      <MenuIcon class="section_ele" @click="toggleShowTasks"/>
       <MenuIcon class="section_ele" />
       <span class="section_ele">{{ props.status }}</span>
       <AddCircleIcon
