@@ -4,9 +4,18 @@ import Select from './Select.vue'
 import ToDoList from './ToDoList.vue'
 import AddCircleIcon from 'vue-material-design-icons/PlusCircleOutline.vue'
 import FormModal from './FormModal.vue'
-import { ref } from 'vue'
+import api from '../api/axios' 
+import { ref, onMounted } from 'vue'
 const showModal = ref(false);
-</script>
+
+onMounted(async()=> {
+  try{
+    const AllTasks = await api.get('/tasks')
+    console.log(AllTasks)
+  }catch(error){
+    console.log(error)
+  }
+})</script>
 
 <template>
   <div class="main">
