@@ -14,6 +14,18 @@ const changeSelectedGenreId = (e) => {
   const selectGenreId = e.target.value;
   taskStore.filterTasks(selectGenreId);
 }
+const filterTasksByStatus = (statusIndex) => {
+  const index = statusIndex
+  return taskStore.filteredTasks.filter(task => task.status == index);
+}
+const taskStatusElements = [
+    "ToDo",
+    "Pending",
+    "Doing(ToDay)",
+    "WIP",
+    "Check",
+    "Done",
+  ]
 
 
 onMounted(async()=> {
@@ -39,7 +51,7 @@ onMounted(async()=> {
       <AddCircleIcon class="add_circle_outline_icon" @click="showModal = true"/>
       <FormModal v-model="showModal" body="genreBody"/>    </div>
     <div class="contents">
-      <ToDoList />
+      <ToDoList v-for="(status, index) in taskStatusElements" :key="index" :status="status"/>
     </div>
   </div>
 </template>

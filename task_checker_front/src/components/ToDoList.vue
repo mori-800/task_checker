@@ -9,14 +9,19 @@ import { ref } from 'vue'
 import { useTaskStore } from '../stores/TaskStore'; 
 const taskStore = useTaskStore();
 const showModal = ref(false)
+const props = defineProps({
+  status: String,
+  tasks: Object
+})
 </script>
 
 <template>
   <div class="task_list">
     <div class="section">
       <MenuIcon class="section_ele" />
-      <span class="section_ele">ToDo</span>
+      <span class="section_ele">{{ props.status }}</span>
       <AddCircleIcon
+        v-if="props.status == 'ToDo'" 
         class="add_circle_outline_icon"
         @click="showModal = true"
       />
@@ -24,6 +29,11 @@ const showModal = ref(false)
     </div>
     <div class="task_field" v-for="task in taskStore.filteredTasks" :key="task.id">
       <Task :task="task"/>
+    </div>
+    <div v-if="showTask">
+      <div class="task_field" v-for="task in props.tasks" :key="task.id" >
+        <Task :task="task"/>
+      </div>
     </div>
   </div>
 </template>
