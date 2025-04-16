@@ -9,7 +9,7 @@ import { useTaskStore } from '../stores/TaskStore'
 import { useGenreStore } from '../stores/GenreStore'
 const showModal = ref(false);
 const taskStore = useTaskStore();
-const genreStore = useGenreStore(); 
+const genreStore = useGenreStore();
 
 onMounted(async()=> {
   try{

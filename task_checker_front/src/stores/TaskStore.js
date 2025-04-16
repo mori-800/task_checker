@@ -8,6 +8,7 @@ export const useTaskStore = defineStore('task', () => {
   async function fetchAllTasks () {
     try{
       const response = await api.get('/tasks')
+      console.log("response.dataの内容",response.data);
       tasks.value = response.data;
     }catch(error){
       console.log('タスクデータの取得ができませんでした', error);

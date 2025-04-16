@@ -6,7 +6,7 @@ export const useGenreStore = defineStore('genre', () => {
   const genres = ref([]);
 
   async function fetchAllGenres () {
-    try{
+   try{
       const response = await api.get('/genres')
       genres.value = response.data;
     }catch(error){
