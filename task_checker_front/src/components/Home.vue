@@ -6,12 +6,13 @@ import AddCircleIcon from 'vue-material-design-icons/PlusCircleOutline.vue'
 import FormModal from './FormModal.vue'
 import api from '../api/axios' 
 import { ref, onMounted } from 'vue'
+import { useTaskStore } from '../stores/TaskStore'
 const showModal = ref(false);
+const taskStore = useTaskStore(); 
 
 onMounted(async()=> {
   try{
-    const AllTasks = await api.get('/tasks')
-    console.log(AllTasks)
+    await taskStore.fetchAllTasks();
   }catch(error){
     console.log(error)
   }
