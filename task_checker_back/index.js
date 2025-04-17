@@ -87,3 +87,36 @@ app.post("/tasks", upload.single('image_url'), async (req, res) => {
     res.status(500).send("タスクの保存に失敗しました")
   }
 })
+
+app.get('/search', async (req, res) => {
+  const query = req.query.q || '';
+
+  try {
+    // タイトルにクエリを含む投稿を検索
+    const tasks = await prisma.task.findMany({
+      where: {
+        name: {
+          contains: query, // タイトルにクエリを含む
+          mode: 'insensitive' // 大文字小文字を区別しない
+        }
+      },
+      orderBy: {
+        deadlineDate: 'desc' // 最新の投稿を上に表示
+      }
+    });
+
+    const updatedTasks = tasks.map((task) => {
+      if (task.image_url) {
+        task.image_url = `http://localhost:3000/${task.image_url}`
+      } else {
+        task.image_url = null;
+      }
+      return task;
+    });
+
+    res.json(updatedTasks); // 検索結果を返す
+  } catch (error) {
+    console.error("検索処理に失敗しました:", error);
+    res.status(500).json({ message: "検索処理に失敗しました" });
+  }
+});

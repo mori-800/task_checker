@@ -5,6 +5,7 @@ import { ref } from 'vue'
 export const useTaskStore = defineStore('task', () => {
   const tasks = ref([]);
   const filteredTasks = ref([]);
+  const searchResults = ref([]);
 
   async function fetchAllTasks () {
     try{
@@ -54,5 +55,16 @@ export const useTaskStore = defineStore('task', () => {
     }
   }
 
- return { tasks, filteredTasks, fetchAllTasks, filterTasks, addTask }
+  async function taskSearch(query) {
+    if (!query) return;
+    try {
+      const response = await api.get('/search', {
+        params: { q: query },
+      });
+      searchResults.value = response.data; // 検索結果を保存
+    } catch (error) {
+      console.error('検索に失敗しました:', error);
+    }
+  }
+ return { tasks, filteredTasks, fetchAllTasks, filterTasks, addTask, taskSearch, searchResults}
 })
