@@ -28,3 +28,25 @@ const router = createRouter({
 });
 
 export default router;
+
+function getCurrentUser(auth) {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+}
+
+
+router.beforeEach(async (to, from, next) => {
+  const currentUser = await getCurrentUser(auth);
+
+  if (!currentUser && to.path !== '/' && to.path !== '/signup') {
+    next('/');
+  }else if (currentUser && (to.path === '/' || to.path === '/signup')) {
+    next('/home');
+  } else {
+    next();
+  }
+});
