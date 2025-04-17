@@ -6,6 +6,7 @@ import { ref, onMounted } from 'vue';
 
 const router = useRouter();
 const currentUser = ref(null);
+const searchKeyword = ref('');
 
 const handleSignOut = async() => {
   try{
@@ -26,17 +27,28 @@ onMounted(() => {
     }
   })
 })
+
+const handleSubmit = (e) => {
+  e.preventDefault();
+  if (searchKeyword.value.trim()) {
+    router.push({
+      path: '/search',
+      query: { q: searchKeyword.value }
+    });
+  }
+};
 </script>
 
 <template>
   <div class="header">
     <div class="header-left">
       <CheckAll class="header_icon" fontsize="large" />
-      <span class="header-title">Task Checker</span>
+      <router-link to="/home" class="header_title">Task Checker</router-link>
     </div>
     <div class="header-search" v-if="currentUser" >
-      <form class="search-container">
+      <form @submit="handleSubmit" class="search-container">
         <input
+          v-model="searchKeyword"
           placeholder="タイトルで検索"
           class="search-input"
           type="search"
@@ -126,5 +138,11 @@ onMounted(() => {
   padding: 8px 20px;
   margin-bottom: 8px;
   font-size: 15px;
+}
+
+.header_title {
+  color: rgb(70, 70, 70);
+  font-weight: bold;
+  text-decoration: none;
 }
 </style>
