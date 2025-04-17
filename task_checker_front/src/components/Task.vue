@@ -1,20 +1,45 @@
 <script setup>
 import Select from './Select.vue'
+import { computed } from 'vue'
+
+const props = defineProps({
+  task: Object
+})
+
+const formattedDeadlineDate = computed(() => {
+  // propsで受け取ったtask.deadlineDateをDateオブジェクトに変換する
+  const date = new Date(props.task.deadlineDate)
+
+  // 変換した Date オブジェクトを、日本の日付形式に変換する
+  return date.toLocaleDateString('ja-JP')
+})
+
+console.log(props.task)//デバッグ時に作成したもの、消さないでおく
+
+const taskStyle = computed(() => {
+  // 現在の日時より deadlineDate が後であるかをチェックする
+  const isDeadlineAfterToday = new Date(props.task.deadlineDate) > new Date();
+  // 条件に基づいてスタイルオブジェクトを返す
+  return {
+    backgroundColor: isDeadlineAfterToday ? 'white' : 'rgb(250, 194, 194)',
+  };
+})
+
 </script>
 
 <template>
-   <div className="task">
-      <span className="task_date">2021-01-01</span>
-      <div className="task_text_contents">
-        <h3 className="task_title">タスク名</h3>
-        <p className="task_sentence">タスクの説明</p>
-        <div class="image-container">
-          <div class="image-wrapper">
-            <img
-              :src="'https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg'"
-              class="task-image"
-            />
-          </div>
+  <div className="task" :style="taskStyle">
+    <span class="task_date">{{ formattedDeadlineDate }}</span>
+      <div class="task_text_contents">
+        <h3 class="task_title">{{ props.task.name }}</h3>
+        <p class="task_sentence">{{ props.task.explanation}}</p>
+      </div>
+      <div class="image-container">
+        <div class="image-wrapper">
+          <img
+            :src="'https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg'"
+            class="task-image"
+          />
         </div>
       </div>
       <div className="task_input_contents">
@@ -22,7 +47,6 @@ import Select from './Select.vue'
       </div>
     </div>
 </template>
-
 <style>
 .task {
   background-color: white;

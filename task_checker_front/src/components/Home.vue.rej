@@ -1,0 +1,10 @@
+diff a/task_checker_front/src/components/Home.vue b/task_checker_front/src/components/Home.vue	(rejected hunks)
+@@ -35,7 +35,7 @@
+   <div class="main">
+     <Header />
+     <div class="genre">
+-      <Select />
++      <Select @change="changeSelectedGenreId"/>
+       <AddCircleIcon class="add_circle_outline_icon" @click="showModal = true"/>
+       <FormModal v-model="showModal" body="genreBody"/>    </div>
+     <div class="contents">
