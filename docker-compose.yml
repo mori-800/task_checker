@@ -21,6 +21,8 @@ services:
         - "3000:3000"
       depends_on:
         - db
+      volumes:
+      -uploads-volume:/app/uploads
 
     db:
       container_name: db
@@ -33,3 +35,4 @@ services:
         - taskchecker-db-volume:/var/lib/postgresql/data
 volumes:
   taskchecker-db-volume:
+  uploads-volume:
