@@ -16,7 +16,7 @@ export const useTaskStore = defineStore('task', () => {
       console.log('タスクデータの取得ができませんでした', error);
     }
   }
-  // return { tasks, fetchAllTasks }リターンは2つは使えない
+  // return { tasks, fetchAllTasks } リターンは2つは使えない、使用時には注意すること
 
 // // 以下を追加
 //   // ジャンルデータ変更に伴うタスクのフィルタリング
@@ -29,5 +29,5 @@ export const useTaskStore = defineStore('task', () => {
        filteredTasks.value = tasks.value.filter(task => numericGenreId === task.genreId)
      }
    }
-   return { tasks, filteredTasks, fetchAllTasks, filterTasks }
+   return { tasks, filteredTasks, fetchAllTasks, filterTasks } //19行目のreturnが阻害していたことで機能していなかった
  })
