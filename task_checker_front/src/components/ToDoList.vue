@@ -23,7 +23,6 @@ const toggleShowTasks = () => {
   <div class="task_list">
     <div class="section">
       <MenuIcon class="section_ele" @click="toggleShowTasks"/>
-      <MenuIcon class="section_ele" />
       <span class="section_ele">{{ props.status }}</span>
       <AddCircleIcon
         v-if="props.status == 'ToDo'" 
@@ -32,9 +31,9 @@ const toggleShowTasks = () => {
       />
       <FormModal v-model="showModal" body="taskBody"/>
     </div>
-    <div class="task_field" v-for="task in taskStore.filteredTasks" :key="task.id">
+    <!-- <div class="task_field" v-for="task in taskStore.filteredTasks" :key="task.id">
       <Task :task="task"/>
-    </div>
+    </div> -->
     <div v-if="showTask">
       <div class="task_field" v-for="task in props.tasks" :key="task.id" >
         <Task :task="task"/>

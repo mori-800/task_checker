@@ -14,7 +14,7 @@ const formattedDeadlineDate = computed(() => {
   return date.toLocaleDateString('ja-JP')
 })
 
-console.log(props.task)
+console.log(props.task)//デバッグ時に作成したもの、消さないでおく
 
 const taskStyle = computed(() => {
   // 現在の日時より deadlineDate が後であるかをチェックする
@@ -28,24 +28,24 @@ const taskStyle = computed(() => {
 </script>
 
 <template>
-  <div class="task" :style="taskStyle">
+  <div className="task" :style="taskStyle">
     <span class="task_date">{{ formattedDeadlineDate }}</span>
       <div class="task_text_contents">
         <h3 class="task_title">{{ props.task.name }}</h3>
         <p class="task_sentence">{{ props.task.explanation}}</p>
       </div>
-     <div class="image-container">
-       <div class="image-wrapper">
-         <img
-           :src="'https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg'"
-           class="task-image"
-         />  //仮のデータ
-       </div>
-     </div>
-     <div className="task_input_contents">
-       <Select />
-     </div>
-   </div>
+      <div class="image-container">
+        <div class="image-wrapper">
+          <img
+            :src="'https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg'"
+            class="task-image"
+          />
+        </div>
+      </div>
+      <div className="task_input_contents">
+        <Select />
+      </div>
+    </div>
 </template>
 <style>
 .task {
