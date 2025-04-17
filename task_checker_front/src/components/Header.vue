@@ -1,5 +1,18 @@
 <script setup>
 import CheckAll from 'vue-material-design-icons/CheckAll.vue';
+import { auth, signOut } from '../firebase';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const handleSignOut = async() => {
+  try{
+    await signOut(auth)
+    router.push("/")
+  }catch(error){
+    console.log('ログアウトに失敗しました')
+  }
+}
 </script>
 
 <template>
@@ -23,6 +36,11 @@ import CheckAll from 'vue-material-design-icons/CheckAll.vue';
           検索
         </button>
       </form>
+    </div>
+    <div class="header-right">
+      <button @click="handleSignOut" class="logout-button">
+        ログアウト
+      </button>
     </div>
   </div>
 </template>
@@ -85,5 +103,15 @@ import CheckAll from 'vue-material-design-icons/CheckAll.vue';
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
+}
+
+.logout-button {
+  background-color: rgb(66, 163, 247);
+  color: white;
+  border-radius: 25px;
+  border-style: none;
+  padding: 8px 20px;
+  margin-bottom: 8px;
+  font-size: 15px;
 }
 </style>
