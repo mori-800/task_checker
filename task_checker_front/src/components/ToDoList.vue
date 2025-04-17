@@ -17,6 +17,9 @@ const props = defineProps({
 const toggleShowTasks = () => {
   showTask.value = !showTask.value
 }
+const closeModal = () => {
+  showModal.value = false
+}
 </script>
 
 <template>
@@ -29,7 +32,7 @@ const toggleShowTasks = () => {
         class="add_circle_outline_icon"
         @click="showModal = true"
       />
-      <FormModal v-model="showModal" body="taskBody"/>
+      <FormModal v-model="showModal" body="taskBody" @close-modal="closeModal"/>
     </div>
     <!-- <div class="task_field" v-for="task in taskStore.filteredTasks" :key="task.id">
       <Task :task="task"/>

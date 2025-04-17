@@ -14,8 +14,11 @@ const task = ref({
 
 const taskStore = useTaskStore();
 
+const emit = defineEmits(['close-modal'])
+
 const submitTask =async() => {
   taskStore.addTask(task.value);
+  emit('close-modal')
 }
 
 const genreSelect = (e) => {
