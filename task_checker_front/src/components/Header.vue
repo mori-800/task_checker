@@ -1,7 +1,6 @@
 <script setup>
 import CheckAll from 'vue-material-design-icons/CheckAll.vue';
 import { auth, signOut, onAuthStateChanged } from '../firebase'
-import { auth, signOut } from '../firebase';
 import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
 
