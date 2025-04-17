@@ -22,7 +22,7 @@ services:
       depends_on:
         - db
       volumes:
-      -uploads-volume:/app/uploads
+        - uploads-volume:/app/uploads
 
     db:
       container_name: db
