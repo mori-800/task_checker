@@ -32,7 +32,16 @@ const prisma = new PrismaClient();
 app.get("/tasks", async(req, res) => {
   try {
   const AllTasks = await prisma.task.findMany();
-  res.json(AllTasks)
+  const updatedTasks = AllTasks.map((task) => {
+    if (task.image_url) {
+      task.image_url = `http://localhost:3000/${task.image_url}`
+    } else {
+      task.image_url = null;
+    }
+    return task;
+  });
+
+  res.json(updatedTasks)
   } catch(error) {
   console.log(error)
   }
