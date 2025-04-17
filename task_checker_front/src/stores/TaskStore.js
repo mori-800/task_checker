@@ -16,7 +16,7 @@ export const useTaskStore = defineStore('task', () => {
       console.log('タスクデータの取得ができませんでした', error);
     }
   }
-  // return { tasks, fetchAllTasks }リターンは2つは使えない
+  // return { tasks, fetchAllTasks } リターンは2つは使えない、使用時には注意すること
 
 // // 以下を追加
 //   // ジャンルデータ変更に伴うタスクのフィルタリング
@@ -29,5 +29,30 @@ export const useTaskStore = defineStore('task', () => {
        filteredTasks.value = tasks.value.filter(task => numericGenreId === task.genreId)
      }
    }
-   return { tasks, filteredTasks, fetchAllTasks, filterTasks }
- })
+   
+  //  return { tasks, filteredTasks, fetchAllTasks, filterTasks } //実装時にundefinedエラーが発生、19行目のreturnが阻害していたことで機能していなかった。記録のために消さないでおく
+  
+  async function addTask(newTask) {
+    try{
+      const formData = new FormData();
+      formData.append('name', newTask.name);
+      formData.append('explanation', newTask.explanation);
+      formData.append('deadlineDate', newTask.deadlineDate);
+      formData.append('status', newTask.status);
+      formData.append('genreId', newTask.genreId);
+      formData.append('image_url', newTask.image_url);
+
+      const response = await api.post('/tasks', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      const addedTask = response.data;
+      tasks.value.push(addedTask)
+    }catch(error){
+      console.log('タスクデータの保存ができませんでした', error);
+    }
+  }
+
+ return { tasks, filteredTasks, fetchAllTasks, filterTasks, addTask }
+})
